@@ -1,27 +1,117 @@
-import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+//
+import React, { Component } from 'react';
+import {
+  ScrollView,
+  Button,
+  StyleSheet,
+  ActivityIndicator,
+  ListView,
+  Text,
+  View,
+  Alert
+} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 
-export default class LinksScreen extends React.Component {
+//
+import styles from 'app/views/assets/styles/ux';
+
+//
+export default class LinksScreen extends Component {
+
+  //
   static navigationOptions = {
+
     title: 'Links',
+
   };
 
-  render() {
+  //
+  constructor(props) {
+
+    super(props);
+
+    this.state = {
+
+      isLoading: true,
+
+    }
+
+  }
+
+  //
+  componentDidMount() {
+
+    return fetch('http://test.api.venny.io/v3/posts?token=keys_qABC40UKdvWZN0DVt&author=profiler3jM5dM2I&app=83838383')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.setState({
+        isLoading: false,
+        dataSource: ds.cloneWithRows(responseJson),
+      }, function() {
+        // In this block you can do something with new state.
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  }
+
+  //
+  GetItem (flower_name) {
+
+    console.log("Yo!");
+    Alert.alert(flower_name);
+
+  }
+
+  //
+  ListViewItemSeparator = () => {
     return (
-      <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoLinksView and replace it with your
-           * content, we just wanted to provide you with some helpful links */}
-        <ExpoLinksView />
-      </ScrollView>
+      <View
+        style={{
+          height: 2,
+          width: "100%",
+          backgroundColor: "#000",
+        }}
+      />
     );
   }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-  },
-});
+  //
+  render() {
+
+    //
+    if (this.state.isLoading) {
+      return (
+        <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
+    return (
+
+      <View style={styles.MainContainer}>
+
+        <ListView
+
+          dataSource={this.state.dataSource}
+
+          renderSeparator= {this.ListViewItemSeparator}
+
+          enableEmptySections = {true}
+
+          renderRow={(rowData) => <Text style={styles.rowViewContainer}
+          onPress={this.GetItem.bind(this, rowData.event)} >{rowData.process}</Text>}
+
+        />
+
+      </View>
+
+    );
+
+  }
+
+}
