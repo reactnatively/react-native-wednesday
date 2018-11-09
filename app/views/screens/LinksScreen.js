@@ -41,15 +41,15 @@ export default class LinksScreen extends Component {
   //
   componentDidMount() {
 
-    return fetch('http://test.api.venny.io/v3/posts?token=keys_qABC40UKdvWZN0DVt&author=profiler3jM5dM2I&app=83838383')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-      this.setState({
-        isLoading: false,
-        dataSource: ds.cloneWithRows(responseJson),
-      }, function() {
-        // In this block you can do something with new state.
+    return fetch('http://localhost/www.venny.io/flowers.json')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+          isLoading: false,
+          dataSource: ds.cloneWithRows(responseJson),
+        }, function() {
+          // In this block you can do something with new state.
       });
     })
     .catch((error) => {
@@ -59,7 +59,7 @@ export default class LinksScreen extends Component {
   }
 
   //
-  GetItem (flower_name) {
+  GetItem(flower_name) {
 
     console.log("Yo!");
     Alert.alert(flower_name);
