@@ -13,7 +13,7 @@ import {
 import { ExpoLinksView } from '@expo/samples';
 
 //
-import styles from 'app/views/assets/styles/ux';
+//import styles from 'app/views/assets/styles/ux';
 
 //
 export default class LinksScreen extends Component {
@@ -41,7 +41,13 @@ export default class LinksScreen extends Component {
   //
   componentDidMount() {
 
-    return fetch('http://localhost/www.venny.io/flowers.json')
+    return fetch('http://localhost/www.venny.io/flowers.json?param=1',{
+      method: 'GET',
+      header: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -61,7 +67,7 @@ export default class LinksScreen extends Component {
   //
   GetItem(flower_name) {
 
-    console.log("Yo!");
+    console.log("Yooooooooooo!");
     Alert.alert(flower_name);
 
   }
@@ -104,7 +110,7 @@ export default class LinksScreen extends Component {
           enableEmptySections = {true}
 
           renderRow={(rowData) => <Text style={styles.rowViewContainer}
-          onPress={this.GetItem.bind(this, rowData.event)} >{rowData.process}</Text>}
+          onPress={this.GetItem.bind(this, rowData.details)} >{rowData.flower_name}</Text>}
 
         />
 
@@ -115,3 +121,21 @@ export default class LinksScreen extends Component {
   }
 
 }
+
+const styles = StyleSheet.create({
+
+MainContainer :{
+justifyContent: 'center',
+flex:1,
+margin: 10
+
+},
+
+rowViewContainer: {
+  fontSize: 20,
+  paddingRight: 10,
+  paddingTop: 10,
+  paddingBottom: 10,
+}
+
+});
