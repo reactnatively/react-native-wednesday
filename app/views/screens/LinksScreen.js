@@ -1,22 +1,8 @@
-//
 import React, { Component } from 'react';
-import {
-  ScrollView,
-  Button,
-  StyleSheet,
-  ActivityIndicator,
-  ListView,
-  Text,
-  View,
-  Alert
-} from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
 
-//
-//import styles from 'app/views/assets/styles/ux';
+import { StyleSheet, Platform, View, ActivityIndicator, FlatList, Text, Image, Alert, YellowBox } from 'react-native';
 
-//
-export default class LinksScreen extends Component {
+export default class LinkScreen extends Component {
 
   //
   static navigationOptions = {
@@ -25,117 +11,138 @@ export default class LinksScreen extends Component {
 
   };
 
-  //
-  constructor(props) {
+ constructor(props) {
 
-    super(props);
+   super(props);
 
-    this.state = {
+   this.state = {
 
-      isLoading: true,
+     isLoading: true
 
-    }
+   }
 
-  }
+   YellowBox.ignoreWarnings([
+    'Warning: componentWillMount is deprecated',
+    'Warning: componentWillReceiveProps is deprecated',
+  ]);
 
-  //
-  componentDidMount() {
+ }
 
-    return fetch('http://localhost/www.venny.io/flowers.json?param=1',{
-      method: 'GET',
-      header: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.setState({
-          isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson),
-        }, function() {
-          // In this block you can do something with new state.
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+GetItem (flower_name) {
 
-  }
+ Alert.alert(flower_name);
 
-  //
-  GetItem(flower_name) {
+ }
 
-    console.log("Yooooooooooo!");
-    Alert.alert(flower_name);
+ FlatListItemSeparator = () => {
+   return (
+     <View
+       style={{
+         height: .5,
+         width: "100%",
+         backgroundColor: "#000",
+       }}
+     />
+   );
+ }
 
-  }
+ webCall=()=>{
 
-  //
-  ListViewItemSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 2,
-          width: "100%",
-          backgroundColor: "#000",
-        }}
-      />
-    );
-  }
+  return fetch('https://reactnativecode.000webhostapp.com/FlowersList.php')
+         .then((response) => response.json())
+         .then((responseJson) => {
+           this.setState({
+             isLoading: false,
+             dataSource: responseJson
+           }, function() {
+             // In this block you can do something with new state.
+           });
+         })
+         .catch((error) => {
+           console.error(error);
+         });
 
-  //
-  render() {
+ }
 
-    //
-    if (this.state.isLoading) {
-      return (
-        <View style={{flex: 1, paddingTop: 20}}>
-          <ActivityIndicator />
-        </View>
-      );
-    }
+ componentDidMount(){
 
-    return (
+  this.webCall();
 
-      <View style={styles.MainContainer}>
+ }
 
-        <ListView
+ render() {
 
-          dataSource={this.state.dataSource}
+   if (this.state.isLoading) {
+     return (
 
-          renderSeparator= {this.ListViewItemSeparator}
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
 
-          enableEmptySections = {true}
+         <ActivityIndicator size="large" />
 
-          renderRow={(rowData) => <Text style={styles.rowViewContainer}
-          onPress={this.GetItem.bind(this, rowData.details)} >{rowData.flower_name}</Text>}
+       </View>
+
+     );
+
+   }
+
+   return (
+
+     <View style={styles.MainContainer}>
+
+       <FlatList
+
+        data={ this.state.dataSource }
+
+        ItemSeparatorComponent = {this.FlatListItemSeparator}
+
+        renderItem={({item}) =>
+
+            <View style={{flex:1, flexDirection: 'row'}}>
+
+              <Image source = {{ uri: item.flower_image_url }} style={styles.imageView} />
+
+              <Text onPress={this.GetItem.bind(this, item.flower_name)} style={styles.textView} >{item.flower_name}</Text>
+
+            </View>
+
+          }
+
+        keyExtractor={(item, index) => index.toString()}
 
         />
 
-      </View>
-
-    );
-
-  }
-
+     </View>
+   );
+ }
 }
 
 const styles = StyleSheet.create({
 
 MainContainer :{
-justifyContent: 'center',
-flex:1,
-margin: 10
+
+    justifyContent: 'center',
+    flex:1,
+    margin: 5,
+    marginTop: (Platform.OS === 'ios') ? 20 : 0,
 
 },
 
-rowViewContainer: {
-  fontSize: 20,
-  paddingRight: 10,
-  paddingTop: 10,
-  paddingBottom: 10,
+imageView: {
+
+    width: '50%',
+    height: 100 ,
+    margin: 7,
+    borderRadius : 7
+
+},
+
+textView: {
+
+    width:'50%',
+    textAlignVertical:'center',
+    padding:10,
+    color: '#000'
+
 }
 
 });
