@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Notearise",
+    "name": "Wednesday",
     "description": "The conversational note-taking platform that helps users prepare.",
-    "slug": "notearise",
+    "slug": "wednesday",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
@@ -26,6 +26,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "githubUrl": "https://github.com/notearise/notearise"
+    "githubUrl": "https://github.com/reactnatively/react-native-wednesday"
   }
 }
