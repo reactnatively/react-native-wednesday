@@ -6,6 +6,13 @@ import { StackNavigator } from 'react-navigation';
 
 class MainActivity extends Component {
 
+  //
+  static navigationOptions = {
+
+    title: 'Detail',
+
+  };
+
   constructor(props) {
 
     super(props);

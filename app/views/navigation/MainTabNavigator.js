@@ -17,6 +17,13 @@ import CreateScreen from 'app/views/screens/CreateScreen';
 import InsertScreen from 'app/views/screens/InsertScreen';
 import DetailScreen from 'app/views/screens/DetailScreen';
 import PickerScreen from 'app/views/screens/PickerScreen';
+import DrawerScreen from 'app/views/screens/DrawerScreen';
+import FloatingScreen from 'app/views/screens/FloatingScreen';
+import ReplaceStringScreen from 'app/views/screens/ReplaceStringScreen';
+import EllipsesScreen from 'app/views/screens/EllipsesScreen';
+import LimitScreen from 'app/views/screens/LimitScreen';
+import TextHeightScreen from 'app/views/screens/TextHeightScreen';
+import CounterScreen from 'app/views/screens/CounterScreen';
 
 //
 const HomeStack = createStackNavigator({ Home: HomeScreen, });
@@ -31,6 +38,13 @@ const CreateStack = createStackNavigator({ Create: CreateScreen, });
 const InsertStack = createStackNavigator({ Insert: InsertScreen, });
 const DetailStack = createStackNavigator({ Detail: DetailScreen, });
 const PickerStack = createStackNavigator({ Picker: PickerScreen, });
+const DrawerStack = createStackNavigator({ Drawer: DrawerScreen, });
+const FloatingStack = createStackNavigator({ Floating: FloatingScreen, });
+const ReplaceStringStack = createStackNavigator({ ReplaceString: ReplaceStringScreen, });
+const EllipsesStack = createStackNavigator({ Ellipses: EllipsesScreen, });
+const LimitStack = createStackNavigator({ Limit: LimitScreen, });
+const TextHeightStack = createStackNavigator({ TextHeight: TextHeightScreen, });
+const CounterStack = createStackNavigator({ Counter: CounterScreen, });
 
 //
 HomeStack.navigationOptions = { tabBarLabel: 'Home', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
@@ -45,6 +59,13 @@ CreateStack.navigationOptions = { tabBarLabel: 'Create', tabBarIcon: ({ focused 
 InsertStack.navigationOptions = { tabBarLabel: 'Insert', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
 DetailStack.navigationOptions = { tabBarLabel: 'Detail', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
 PickerStack.navigationOptions = { tabBarLabel: 'Picker', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
+DrawerStack.navigationOptions = { tabBarLabel: 'Drawer', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
+FloatingStack.navigationOptions = { tabBarLabel: 'Floating', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
+ReplaceStringStack.navigationOptions = { tabBarLabel: 'ReplaceString', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
+EllipsesStack.navigationOptions = { tabBarLabel: 'Ellipses', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
+LimitStack.navigationOptions = { tabBarLabel: 'Limit', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
+TextHeightStack.navigationOptions = { tabBarLabel: 'Text Height', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
+CounterStack.navigationOptions = { tabBarLabel: 'Counter', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
 
 //
 export default createBottomTabNavigator({
@@ -56,8 +77,13 @@ export default createBottomTabNavigator({
   //IsConnectedStack,
   //RefreshStack,
   //LoadMoreStack,
-  CreateStack,
-  InsertStack,
-  DetailStack,
+  //DetailStack,
   PickerStack,
+  DrawerStack,
+  FloatingStack,
+  ReplaceStringStack,
+  //EllipsesStack,
+  LimitStack,
+  TextHeightStack,
+  CounterStack,
 });

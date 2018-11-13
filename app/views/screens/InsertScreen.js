@@ -6,6 +6,13 @@ import { StyleSheet, View, TextInput, Button, Text, Alert } from 'react-native';
 export default class Project extends Component {
 
   //
+  static navigationOptions = {
+
+    title: 'Insert',
+
+  };
+
+  //
   constructor() {
 
     super()
