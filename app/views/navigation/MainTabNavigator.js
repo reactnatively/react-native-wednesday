@@ -14,6 +14,9 @@ import RefreshScreen from 'app/views/screens/RefreshScreen';
 import IsConnectedScreen from 'app/views/screens/IsConnectedScreen';
 import LoadMoreScreen from 'app/views/screens/LoadMoreScreen';
 import CreateScreen from 'app/views/screens/CreateScreen';
+import InsertScreen from 'app/views/screens/InsertScreen';
+import DetailScreen from 'app/views/screens/DetailScreen';
+import PickerScreen from 'app/views/screens/PickerScreen';
 
 //
 const HomeStack = createStackNavigator({ Home: HomeScreen, });
@@ -24,7 +27,10 @@ const WithImagesStack = createStackNavigator({ WithImages: WithImagesScreen, });
 const RefreshStack = createStackNavigator({ Refresh: RefreshScreen, });
 const IsConnectedStack = createStackNavigator({ IsConnected: IsConnectedScreen, });
 const LoadMoreStack = createStackNavigator({ LoadMore: LoadMoreScreen, });
-const CreateStack = createStackNavigator({ LoadMore: CreateScreen, });
+const CreateStack = createStackNavigator({ Create: CreateScreen, });
+const InsertStack = createStackNavigator({ Insert: InsertScreen, });
+const DetailStack = createStackNavigator({ Detail: DetailScreen, });
+const PickerStack = createStackNavigator({ Picker: PickerScreen, });
 
 //
 HomeStack.navigationOptions = { tabBarLabel: 'Home', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
@@ -36,6 +42,9 @@ RefreshStack.navigationOptions = { tabBarLabel: 'Refresh', tabBarIcon: ({ focuse
 IsConnectedStack.navigationOptions = { tabBarLabel: 'Is Connected', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
 LoadMoreStack.navigationOptions = { tabBarLabel: 'Load More', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
 CreateStack.navigationOptions = { tabBarLabel: 'Create', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
+InsertStack.navigationOptions = { tabBarLabel: 'Insert', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
+DetailStack.navigationOptions = { tabBarLabel: 'Detail', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
+PickerStack.navigationOptions = { tabBarLabel: 'Picker', tabBarIcon: ({ focused }) => ( <TabBarIcon focused={focused} name={ Platform.OS === 'ios' ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle' } /> ), };
 
 //
 export default createBottomTabNavigator({
@@ -43,9 +52,12 @@ export default createBottomTabNavigator({
   //LinksStack,
   //SettingsStack,
   //FromJSONStack,
-  WithImagesStack,
-  IsConnectedStack,
-  RefreshStack,
-  LoadMoreStack,
+  //WithImagesStack,
+  //IsConnectedStack,
+  //RefreshStack,
+  //LoadMoreStack,
   CreateStack,
+  InsertStack,
+  DetailStack,
+  PickerStack,
 });

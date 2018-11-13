@@ -24,14 +24,14 @@ export default class Project extends Component {
       app: '83838383',
       author: 'profiler3jM5dM2I',
       host: 'profiler3jM5dM2I',
-      post_text: '',
-      post_latitude: '',
-      post_longitude: '',
-      post_altitude: '',
+      text: '',
+      latitude: '',
+      longitude: '',
+      altitude: '',
       stage: '',
-      post_topic: '',
-      post_place: '',
-      post_access: '',
+      topic: '',
+      place: '',
+      access: 2,
 
     }
 
@@ -45,145 +45,141 @@ export default class Project extends Component {
 
   }
 
+  //
+  Insert_Data_Into_MySQL = () => {
 
-      Insert_Data_Into_MySQL = () => {
-              this.setState({ ActivityIndicator_Loading : true }, () => {
-                  fetch('http://test.api.venny.io/v3/posts', {
-                      method: 'POST',
-                      headers: {
-                          'Accept': 'application/json',
-                          'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
+    this.setState({ ActivityIndicator_Loading : true }, () => {
 
-                        token: this.state.token,
-                        app: this.state.app,
-                        author: this.state.author,
-                        host: this.state.host,
-                        text: this.state.post_text,
-                        latitude: this.state.post_latitude,
-                        longitude: this.state.post_longitude,
-                        altitude: this.state.post_altitude,
-                        stage: this.state.stage,
-                        topic: this.state.post_topic,
-                        place: this.state.post_place,
-                        access: this.state.post_access,
+      var api = 'http://localhost/www.venny.io/v3/posts' +
+      '?' + 'token' + '=' + this.state.token +
+      '&' + 'app' + '=' + this.state.app +
+      '&' + 'author' + '=' + this.state.author +
+      '&' + 'host' + '=' + this.state.host +
+      '&' + 'text' + '=' + this.state.text +
+      '&' + 'latitude' + '=' + this.state.latitude +
+      '&' + 'longitude' + '=' + this.state.longitude +
+      '&' + 'altitude' + '=' + this.state.altitude +
+      '&' + 'stage' + '=' + this.state.stage +
+      '&' + 'topic' + '=' + this.state.topic +
+      '&' + 'place' + '=' + this.state.place +
+      '&' + 'access' + '=' + this.state.access;
 
-                      })
+      console.log(api);
 
-                  })
-                  .then((response) => response.json())
-                  .then((responseJsonFromServer) => {
+      fetch(api,{method:'POST'})
 
-                      console.log(responseJsonFromServer);
-                      alert(responseJsonFromServer);
+        .then((response) => response.json())
+        .then((responseJsonFromServer) => {
 
-                      this.setState({ ActivityIndicator_Loading : false });
+          console.log(api);
+          console.log(responseJsonFromServer);
+              alert(responseJsonFromServer);
 
-                  }).catch((error) => {
-                      console.error(error);
+              this.setState({ ActivityIndicator_Loading : false });
 
-                      this.setState({ ActivityIndicator_Loading : false});
-                  });
-              });
-          }
+        })
+        .catch((error) => {
+            console.error(error);
 
-          render()
-              {
-                  return(
+            this.setState({ ActivityIndicator_Loading : false});
+        });
 
-                      <View style = { styles.MainContainer }>
+    });
 
-                          <TextInput
-                            placeholder = "What's on your mind?"
-                            style = { styles.TextInputStyleClass }
-                            underlineColorAndroid = "transparent"
-                            onChangeText = {(TextInputText) => this.setState({ post_text: TextInputText })} />
+  }
 
-                          <TextInput
-                            placeholder = "Latitude"
-                            style = { styles.TextInputStyleClass }
-                            underlineColorAndroid = "transparent"
-                            onChangeText = {(TextInputText) => this.setState({ post_latitude: TextInputText })} />
+  //
+  render() {
 
-                          <TextInput
-                            placeholder = "Longitude"
-                            style = { styles.TextInputStyleClass }
-                            underlineColorAndroid = "transparent"
-                            onChangeText = {(TextInputText) => this.setState({ post_longitude: TextInputText })} />
+    return(
 
-                            <TouchableOpacity
-                              activeOpacity = { 0.5 }
-                              style = { styles.TouchableOpacityStyle }
-                              onPress = { this.Insert_Data_Into_MySQL }>
+      <View style = { styles.MainContainer }>
 
-                                 <Text style = { styles.TextStyle }>Insert Data Into MySQL Database</Text>
+        <TextInput
+          placeholder = "What's on your mind?"
+          style = { styles.TextInputStyleClass }
+          underlineColorAndroid = "transparent"
+          onChangeText = {(TextInputText) => this.setState({ text: TextInputText })} />
 
-                             </TouchableOpacity>
+        <TextInput
+          placeholder = "Latitude"
+          style = { styles.TextInputStyleClass }
+          underlineColorAndroid = "transparent"
+          onChangeText = {(TextInputText) => this.setState({ latitude: TextInputText })} />
 
-                               {
+        <TextInput
+          placeholder = "Longitude"
+          style = { styles.TextInputStyleClass }
+          underlineColorAndroid = "transparent"
+          onChangeText = {(TextInputText) => this.setState({ longitude: TextInputText })} />
 
-                                 this.state.ActivityIndicator_Loading ? <ActivityIndicator color='#009688' size='large'style={styles.ActivityIndicatorStyle} /> : null
+        <TouchableOpacity
+          activeOpacity = { 0.5 }
+          style = { styles.TouchableOpacityStyle }
+          onPress = { this.Insert_Data_Into_MySQL }>
 
-                               }
+          <Text style = { styles.TextStyle }>Insert Data Into MySQL Database</Text>
 
-                      </View>
+        </TouchableOpacity>
 
-                  );
-              }
+        {
+
+          this.state.ActivityIndicator_Loading ? <ActivityIndicator color='#009688' size='large'style={styles.ActivityIndicatorStyle} /> : null
+
+        }
+
+      </View>
+
+    );
+
+  }
 
 }
 
-const styles = StyleSheet.create(
-{
-    MainContainer:
-    {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      margin: 20
+//
+const styles = StyleSheet.create({
 
-    },
+  MainContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 20
+  },
 
-    TextInputStyleClass:
-    {
+  TextInputStyleClass: {
 
-      textAlign: 'center',
-      height: 40,
-      backgroundColor : "#fff",
-      borderWidth: 1,
-      borderColor: '#009688',
-      borderRadius: 7 ,
-      marginBottom: 10,
-      width: '95%'
-    },
+    textAlign: 'center',
+    height: 40,
+    backgroundColor : "#fff",
+    borderWidth: 1,
+    borderColor: '#009688',
+    borderRadius: 7 ,
+    marginBottom: 10,
+    width: '95%'
+  },
 
-    TouchableOpacityStyle:
-    {
-      paddingTop:10,
-      paddingBottom:10,
-      backgroundColor:'#009688',
-      marginBottom: 20,
-      width: '90%'
+  TouchableOpacityStyle: {
+    paddingTop:10,
+    paddingBottom:10,
+    backgroundColor:'#009688',
+    marginBottom: 20,
+    width: '90%'
+  },
 
-    },
+  TextStyle: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 18
+  },
 
-    TextStyle:
-    {
-       color: '#fff',
-        textAlign: 'center',
-        fontSize: 18
-    },
-
-    ActivityIndicatorStyle:{
-
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      top: 0,
-      bottom: 0,
-      alignItems: 'center',
-      justifyContent: 'center'
-
+  ActivityIndicatorStyle:{
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
+
 });
